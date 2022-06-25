@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { useUserStore } from '@/store/user/user'
-const userStore = useUserStore()
-const changeName = () => {
-  userStore.updateName('王五')
-}
+import { ConfigProvider } from 'ant-design-vue'
 </script>
 
 <template>
-  <div>{{userStore.name}}</div>
-  <button @click="changeName">修改store</button>
-  <RouterView/>
+  <ConfigProvider>
+    <RouterView/>
+  </ConfigProvider>
 </template>
 
 <style>
