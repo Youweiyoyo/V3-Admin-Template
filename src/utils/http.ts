@@ -1,5 +1,7 @@
-import axios, {AxiosResponse, AxiosRequestConfig} from 'axios';
+import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {message} from "ant-design-vue"
+import {storeToRefs} from "pinia"
+import {useUserStore} from "@/store/user"
 
 const Service = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -9,11 +11,16 @@ const Service = axios.create({
 // Request interceptors
 Service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
+        const useStore = useUserStore()
+        const {token} = storeToRefs(useStore)
         // do something
+        if (token) {
+            config.headers.Authorization = token.value;
+        }
         return config;
     },
     (error: any) => {
-        Promise.reject(error);
+        return Promise.reject(new Error(error));
     }
 );
 
@@ -24,7 +31,7 @@ Service.interceptors.response.use(
         const {data, meta} = response.data
         if (meta.status === 200 || meta.status === 201) {
             return data
-        }else {
+        } else {
             message.error(meta.msg)
             return Promise.reject(new Error(meta.msg))
         }
