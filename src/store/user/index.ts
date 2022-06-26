@@ -1,16 +1,24 @@
 import {defineStore} from 'pinia'
+import {login as loginApi} from '@/api/login'
+import {IValues} from '@/types/login'
 
 export const useUserStore = defineStore({
     id: 'user', // id必填，且需要唯一
     state: () => {
         return {
-            nickName: "",
+            username: "",
             token: ""
         }
     },
     actions: {
-        setToken(token: string) {
-            this.token = token
+        login(data: IValues) {
+            return new Promise((resolve, reject) => {
+                loginApi(data).then((res) => {
+                    this.token = res.token
+                    this.username = res.username
+                    resolve(res)
+                }).catch(err => reject(err))
+            })
         }
     },
     // 开启 Pinia 持久化存储

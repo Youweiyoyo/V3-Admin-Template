@@ -53,8 +53,12 @@
 <script lang="ts" setup>
 import {reactive} from "vue"
 import {UserOutlined, LockOutlined} from '@ant-design/icons-vue'
-import {login} from '@/api/login'
-import {IValues} from "./type"
+import {IValues} from "@/types/login"
+import {useUserStore} from "@/store/user"
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+const userStore = useUserStore()
 
 const formState = reactive({
   username: 'admin',
@@ -63,8 +67,8 @@ const formState = reactive({
 })
 
 const onFinish = async (values: IValues) => {
-  const res = await login(formState)
-  console.log(res, "res")
+  const res = await userStore.login(formState)
+  res && await router.push("/home")
 }
 const onFinishFailed = ({values, errorFields, outOfDate}) => {
 
