@@ -1,4 +1,5 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, {AxiosResponse, AxiosRequestConfig} from 'axios';
+import {message} from "ant-design-vue"
 
 const Service = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -19,13 +20,18 @@ Service.interceptors.request.use(
 // Response interceptors
 Service.interceptors.response.use(
     async (response: AxiosResponse) => {
-        // do something
         // 根据自己的业务处理
-        return response.data
+        const {data, meta} = response.data
+        if (meta.status === 200 || meta.status === 201) {
+            return data
+        }else {
+            message.error(meta.msg)
+            return Promise.reject(new Error(meta.msg))
+        }
     },
     (error: any) => {
-        // do something
         // 根据自己的业务处理
+        error.response && message.error(error.response.message)
         return Promise.reject(error);
     }
 );
