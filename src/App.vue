@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ConfigProvider } from 'ant-design-vue'
+import {ConfigProvider} from 'ant-design-vue'
 </script>
 
 <template>
@@ -8,5 +8,4 @@ import { ConfigProvider } from 'ant-design-vue'
   </ConfigProvider>
 </template>
 
-<style>
-</style>
+<style src="./assets/style/reset.css"/>

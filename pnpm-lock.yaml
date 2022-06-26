@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@ant-design/icons-vue': ^6.1.0
   '@types/node': ^18.0.0
   '@typescript-eslint/parser': ^5.28.0
   '@vitejs/plugin-vue': ^2.3.3
@@ -22,6 +23,7 @@ specifiers:
   vue-tsc: ^0.34.7
 
 dependencies:
+  '@ant-design/icons-vue': registry.npmmirror.com/@ant-design/icons-vue/6.1.0_vue@3.2.37
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.7.4_vue@3.2.37
   ant-design-vue: registry.npmmirror.com/ant-design-vue/3.2.7_vue@3.2.37
   axios: registry.npmmirror.com/axios/0.27.2

@@ -29,7 +29,7 @@ export default defineConfig({
     // 设置 https 代理
     proxy: {
       '/api': {
-        target: 'your https address',
+        target: 'https://lianghj.top:8888/api/private/v1/',
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/api/, '')
       }

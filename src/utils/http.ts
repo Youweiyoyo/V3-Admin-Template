@@ -1,9 +1,12 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
-const service = axios.create();
+const Service = axios.create({
+    baseURL: import.meta.env.VITE_API_URL,
+    timeout: 5000
+});
 
 // Request interceptors
-service.interceptors.request.use(
+Service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         // do something
         return config;
@@ -14,14 +17,17 @@ service.interceptors.request.use(
 );
 
 // Response interceptors
-service.interceptors.response.use(
+Service.interceptors.response.use(
     async (response: AxiosResponse) => {
         // do something
+        // 根据自己的业务处理
+        return response.data
     },
     (error: any) => {
         // do something
+        // 根据自己的业务处理
         return Promise.reject(error);
     }
 );
 
-export default service;
+export default Service;
