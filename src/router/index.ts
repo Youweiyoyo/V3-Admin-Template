@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
             keepAlive: true,
             requireAuth: true
         },
-        component: () => import('@/view/Home/home.vue')
+        component: () => import('@/components/Layout')
     }
 ]
 

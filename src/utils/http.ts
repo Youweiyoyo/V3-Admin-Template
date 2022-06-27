@@ -14,9 +14,7 @@ Service.interceptors.request.use(
         const useStore = useUserStore()
         const {token} = storeToRefs(useStore)
         // do something
-        if (token) {
-            config.headers!.Authorization = token.value;
-        }
+        config.headers!.Authorization = token.value;
         return config;
     },
     (error: any) => {
