@@ -1,17 +1,25 @@
 <template>
   <a-layout class="app-wrapper">
     <a-layout-sider width="210px" class="sider-container">
-      <Menu></Menu>
+      <Menu @menuClick="menuClick"></Menu>
     </a-layout-sider>
     <a-layout class="container">
       <a-layout-header>Header</a-layout-header>
-      <a-layout-content>Content</a-layout-content>
+      <a-layout-content>
+        <RouterView/>
+      </a-layout-content>
     </a-layout>
   </a-layout>
 </template>
 
 <script setup lang="ts">
 import Menu from "./Components/Menu/index.vue"
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+const menuClick = (path: string) => {
+  router.replace(path)
+}
 </script>
 
 <style scoped lang="less">
@@ -22,6 +30,10 @@ import Menu from "./Components/Menu/index.vue"
 
   .ant-layout-header {
     background-color: white;
+  }
+
+  .ant-menu {
+    height: 100%;
   }
 
   .container {
