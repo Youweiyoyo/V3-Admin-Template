@@ -1,5 +1,5 @@
 <template>
-  <a-menu mode="inline" theme="light" @click="handleMenuClick">
+  <a-menu mode="inline" theme="light" @click="handleMenuClick" @openChange="onOpenChange" :open-keys="openKeys" v-model:selectedKeys="selectedKeys">
     <a-sub-menu v-for="menu in menuList" :key="menu.id" :title="menu.authName">
       <template #icon>
         <MailOutlined/>
@@ -22,12 +22,25 @@ const Emits = defineEmits<{
   (e: "menuClick", path: string): void
 }>()
 const menuList = ref([])
+const openKeys = ref([])
+const rootSubmenuKeys = ref([])
+const selectedKeys = ref([])
 const initMenuList = async () => {
   menuList.value = await getMenuList()
+  rootSubmenuKeys.value = menuList.value.map((item: object) => item.id)
 }
 initMenuList()
 const handleMenuClick = ({item, key, keyPath}) => {
   Emits("menuClick", key)
+}
+const onOpenChange = (openKey: any) => {
+  const latestOpenKey = openKey.find((key: string) => !openKeys.value.includes(key))
+  if (!rootSubmenuKeys.value.includes(latestOpenKey)) {
+    openKeys.value = openKey;
+  } else {
+    openKeys.value = latestOpenKey ? [latestOpenKey] : [];
+  }
+
 }
 
 </script>
